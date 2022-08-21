@@ -1,0 +1,10 @@
+{
+  "name": "open-dice",
+  "version": "1.0.0",
+  "description": "Simple open source dice roller",
+  "main": "bot.js",
+  "author": "Alessandro Minali",
+  "dependencies": {
+    "discord.io": "github:woor/discord.io#gateway_v6"
+  }
+}

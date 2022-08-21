@@ -1,0 +1,14 @@
+[Unit]
+Description=Open Dice
+
+[Service]
+ExecStart=/var/www/open-dice/bot.js
+Restart=always
+User=nobody
+Group=nogroup
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/var/www/open-dice
+
+[Install]
+WantedBy=multi-user.target
