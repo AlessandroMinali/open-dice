@@ -14,5 +14,12 @@ Can combine all of the above!
 
 # Usage
 
-1. Install node
-2. `npm install`
+1. Install [node](https://nodejs.org/en/download/)
+2. `$ npm install`
+3. Create `auth.json` file with contents:
+```json
+{
+  "token": "<YOUR TOKEN HERE>"
+}
+```
+4. `$ node bot.js` or https://stackoverflow.com/a/29042953
