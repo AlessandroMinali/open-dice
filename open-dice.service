@@ -4,6 +4,7 @@ Description=Open Dice
 [Service]
 ExecStart=/var/www/open-dice/bot.js
 Restart=always
+RestartSec=10s
 User=nobody
 Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin
