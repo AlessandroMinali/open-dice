@@ -5,6 +5,6 @@
   "main": "bot.js",
   "author": "Alessandro Minali",
   "dependencies": {
-    "discord.io": "github:woor/discord.io#gateway_v6"
+    "discord.io": "file:discord.io"
   }
 }
