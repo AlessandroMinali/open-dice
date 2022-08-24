@@ -32,8 +32,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       message: "pong"
     });
   }
-  if (message.includes("!roll ")) {
-    var commands = message.split("!roll")[1].split(',');
+  if (message.includes("!roll ") || message.includes("!r")) {
+    var commands = message.includes("!roll ") ? message.split("!roll")[1].split(',') : message.split("!r")[1].split(',');
     var result;
     var sums = new Array(commands.length).fill(0);;
     var final = [];
