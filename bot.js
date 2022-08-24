@@ -33,13 +33,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     });
   }
   if (message.includes("!roll ")) {
-    var commands = message.replace(/\s/g, '').split("!roll")[1].split(',');
+    var commands = message.split("!roll")[1].split(',');
     var result;
     var sums = new Array(commands.length).fill(0);;
     var final = [];
+    var comments = new Array(commands.length).fill('');
     for(var i = 0; i < commands.length; i++) {
       var rolls = [];
-      while (result = commands[i].match(/([<>\+\-\/\*]?)(\d*d?\d+)/)) {
+      var c = '';
+      while (result = commands[i].match(/\s?([<>\+\-\/\*]?)\s?(\d*d?\d+)(#[\w\s]+)?/)) {
+        // comments
+        if (result[3]) {
+          if (result[1] != undefined && c.length > 0) { c += result[1]; }
+          c += result[3].replace(/\s$/, '').slice(1,);
+        }
+
         // plain num
         var num = result[2].match(/^\d+$/);
         //roll
@@ -60,8 +68,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         } else {
           return error(channelID);
         }
+        comments[i] = c;
         commands[i] = commands[i].slice(result[0].length);
-
       }
       final.push(rolls);
       sums[i] = eval(sums[i]);
@@ -77,9 +85,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       output.push('`' + str.join(', ') + '`');
     }
 
+    Math.max(...(comments.map(el => el.length))) + 2;
+    if (comments.some(el => el.length > 1)) {
+      var z = comments.map(function(e, i) { return [e, sums[i]]; });
+      var pad = Math.max(...(comments.map(el => el.length))) + 2;
+      var list = '';
+      for(var i = 0; i < z.length; i++) { list += z[i][0].padStart(pad, ' ') + ': ' + z[i][1] + "\n"; }
+      output = output.join(", ") + " Result:\n" + "```\n" + list.toUpperCase() + "```";
+    } else {
+      output = output.join(", ") + " Result: " + sums.join(', ').toUpperCase();
+    }
+
     bot.sendMessage({
       to: channelID,
-      message: output.join(", ") + " Result: " + sums.join(', ').toUpperCase()
+      message: output
     });
   }
 });
